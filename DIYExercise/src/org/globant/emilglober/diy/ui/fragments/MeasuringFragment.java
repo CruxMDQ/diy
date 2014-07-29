@@ -1,4 +1,4 @@
-package org.globant.emilglober.diy.ui;
+package org.globant.emilglober.diy.ui.fragments;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import org.globant.emilglober.diy.db.MeasurementsDBAdapter;
+import org.globant.emilglober.diy.ui.LauncherActivity;
 
 import com.emilglober.diy.R;
 
@@ -27,6 +28,11 @@ import android.widget.DatePicker;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
+
+/*
+ * Sources:
+ * https://shanetully.com/2011/12/android-3-x-and-4-x-numberpicker-example/
+ */
 
 public class MeasuringFragment extends Fragment
 {
@@ -99,8 +105,6 @@ public class MeasuringFragment extends Fragment
 				int mMonth = c.get(Calendar.MONTH);
 				int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-				System.out.println("the selected " + mDay);
-
 				DatePickerDialog dialog = new DatePickerDialog(getActivity(),
 						new DatePickerFragment(), mYear, mMonth, mDay);
 
@@ -108,8 +112,6 @@ public class MeasuringFragment extends Fragment
 			}
 		});
 
-		// NumberPicker tutorial:
-		// https://shanetully.com/2011/12/android-3-x-and-4-x-numberpicker-example/
 		nbpHundreds = (NumberPicker) rootView.findViewById(R.id.nbpHundreds);
 		nbpHundreds.setMaxValue(9);
 		nbpHundreds.setMinValue(0);

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="navigation_drawer_items_array">
+        <item>Take new measurement</item>
+        <item>View history</item>
+        <item>Settings</item>
+    </string-array>    
+    
     <string name="app_name">DIY Exercise</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_new_measurement">New measurement</string>
@@ -26,11 +32,8 @@
     <string name="button_add_contact">Add new</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-
-    <string-array name="navigation_drawer_items_array">
-        <item>Take new measurement</item>
-        <item>View history</item>
-        <item>Settings</item>
-    </string-array>
+    <string name="label_date_range_start">Select all records from the date set below:</string>
+    <string name="label_date_range_end">Select all records up to the date set below:</string>
+    <string name="label_date_select">Touch to pick a date</string>
 
 </resources>

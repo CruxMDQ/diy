@@ -1,4 +1,4 @@
-package org.globant.emilglober.diy.ui;
+package org.globant.emilglober.diy.ui.fragments;
 
 import org.globant.emilglober.diy.adapters.CustomListAdapter;
 

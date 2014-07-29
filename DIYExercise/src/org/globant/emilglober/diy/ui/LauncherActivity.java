@@ -7,6 +7,10 @@ import org.globant.emilglober.diy.db.MeasurementsDBAdapter;
 import org.globant.emilglober.diy.db.UserdataDBAdapter;
 import org.globant.emilglober.diy.model.Measurement;
 import org.globant.emilglober.diy.model.User;
+import org.globant.emilglober.diy.ui.fragments.DateRangePickingFragment;
+import org.globant.emilglober.diy.ui.fragments.HistoryFragment;
+import org.globant.emilglober.diy.ui.fragments.MeasuringFragment;
+import org.globant.emilglober.diy.ui.fragments.UserInfoFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -67,6 +71,7 @@ public class LauncherActivity extends ActionBarActivity // implements
 
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
+	
 	/*
 	 * END: Navigation drawer stuff
 	 */
@@ -130,11 +135,12 @@ public class LauncherActivity extends ActionBarActivity // implements
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-		DrawerItem[] drawerItem = new DrawerItem[3];
+		DrawerItem[] drawerItem = new DrawerItem[4];
 
 		drawerItem[0] = new DrawerItem("Take measurement");
 		drawerItem[1] = new DrawerItem("View history");
-		drawerItem[2] = new DrawerItem("Settings");
+		drawerItem[2] = new DrawerItem("Share history");
+		drawerItem[3] = new DrawerItem("Settings");
 
 		DrawerItemCustomAdapter drawerAdapter = new DrawerItemCustomAdapter(
 				this, R.layout.drawer_item_row, drawerItem);
@@ -473,6 +479,9 @@ public class LauncherActivity extends ActionBarActivity // implements
 				// loadMeasurementHistoryUI();
 				break;
 			case 2:
+				fragment = new DateRangePickingFragment();
+				break;
+			case 3:
 				fragment = loadUserInfoFragment();
 				// loadUserInfoUI();
 				break;
