@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DIY Exercise</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_new_measurement">New measurement</string>
+    <string name="action_settings">Settings</string>
+    <string name="hint_name">Type your name here</string>
+    <string name="hint_user_email">Type your email here</string>
+    <string name="hint_recipient_email">Pick an addressee</string>
+    <string name="button_pick">Choose</string>
+    <string name="button_delete">Delete</string>
+    <string name="label_pounds">Pounds</string>
+    <string name="label_kilograms">Kilograms</string>
+    <string name="label_pick_system">Which unit do you prefer?</string>
+    <string name="button_settings_done">All done!</string>
+    <string name="label_pick_date">When did you take this measurement?</string>
+    <string name="label_pick_weight">Input weight. Come on, it\'s not that bad!</string>
+    <string name="menu_option_delete">Delete this row</string>
+    <string name="menu_option_edit">Edit this row</string>
+    <string name="menu_option_share_self">Email to your address</string>
+    <string name="menu_option_share_other">Email to default recipient</string>
+    <string name="button_edit">Edit</string>
+    <string name="button_share">Share</string>
+
+</resources>
