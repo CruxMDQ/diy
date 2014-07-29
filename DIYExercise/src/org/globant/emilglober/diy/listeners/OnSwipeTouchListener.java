@@ -1,4 +1,4 @@
-package org.globant.emilglober.diy.tools;
+package org.globant.emilglober.diy.listeners;
 
 import android.content.Context;
 import android.view.GestureDetector;

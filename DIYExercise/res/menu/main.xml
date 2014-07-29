@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.emilglober.diy.MainActivity" >
 
+    <!-- 
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
@@ -13,5 +14,9 @@
         android:id="@+id/action_new_measurement"
         android:title="@string/action_new_measurement"
         />
-
+    
+    <item android:id="@+id/action_view_history"
+        android:title="@string/menu_view_history"
+        />
+ 	-->
 </menu>

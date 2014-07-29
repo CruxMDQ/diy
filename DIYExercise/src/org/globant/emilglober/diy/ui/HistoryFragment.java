@@ -1,6 +1,6 @@
 package org.globant.emilglober.diy.ui;
 
-import org.globant.emilglober.diy.db.CustomListAdapter;
+import org.globant.emilglober.diy.adapters.CustomListAdapter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

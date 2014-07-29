@@ -16,6 +16,9 @@ public final class R {
         public static final int abc_slide_out_bottom=0x7f040004;
         public static final int abc_slide_out_top=0x7f040005;
     }
+    public static final class array {
+        public static final int navigation_drawer_items_array=0x7f0c0000;
+    }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -1192,68 +1195,69 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f05001c;
         public static final int action_menu_presenter=0x7f05001d;
         public static final int action_mode_close_button=0x7f05002a;
-        public static final int action_new_measurement=0x7f050065;
-        public static final int action_settings=0x7f050064;
         public static final int activity_chooser_view_content=0x7f05002b;
         public static final int always=0x7f050012;
-        public static final int back=0x7f050043;
+        public static final int back=0x7f050045;
         public static final int beginning=0x7f050017;
         public static final int both=0x7f050001;
-        public static final int btnChoose=0x7f05004e;
-        public static final int btnDelete=0x7f050046;
-        public static final int btnDeleteOld=0x7f05005f;
-        public static final int btnDone=0x7f050053;
-        public static final int btnEdit=0x7f050045;
-        public static final int btnMeasuringDone=0x7f05005b;
-        public static final int btnSendToSelf=0x7f05005a;
-        public static final int btnShare=0x7f050044;
+        public static final int btnAdd=0x7f050053;
+        public static final int btnChoose=0x7f050052;
+        public static final int btnDelete=0x7f050048;
+        public static final int btnDeleteOld=0x7f050063;
+        public static final int btnDone=0x7f050058;
+        public static final int btnEdit=0x7f050047;
+        public static final int btnMeasuringDone=0x7f05005f;
+        public static final int btnShare=0x7f050046;
         public static final int checkbox=0x7f050033;
         public static final int choice=0x7f050006;
         public static final int collapseActionView=0x7f050014;
-        public static final int container=0x7f050042;
-        public static final int context_history_delete=0x7f050060;
-        public static final int context_history_edit=0x7f050061;
-        public static final int context_history_send_other=0x7f050063;
-        public static final int context_history_send_self=0x7f050062;
+        public static final int container=0x7f050043;
+        public static final int context_history_delete=0x7f050064;
+        public static final int context_history_edit=0x7f050065;
+        public static final int context_history_send_other=0x7f050067;
+        public static final int context_history_send_self=0x7f050066;
         public static final int default_activity_button=0x7f05002e;
         public static final int dialog=0x7f050015;
         public static final int disableHome=0x7f05000f;
         public static final int dismiss=0x7f050005;
+        public static final int drawer_layout=0x7f050042;
         public static final int dropdown=0x7f050016;
         public static final int edit_query=0x7f050036;
         public static final int end=0x7f050019;
         public static final int expand_activities_button=0x7f05002c;
         public static final int expanded_menu=0x7f050032;
-        public static final int front=0x7f050047;
+        public static final int front=0x7f050049;
         public static final int home=0x7f05001a;
         public static final int homeAsUp=0x7f05000c;
         public static final int icon=0x7f050030;
         public static final int ifRoom=0x7f050011;
         public static final int image=0x7f05002d;
-        public static final int lblAddressee=0x7f05004d;
-        public static final int lblDate=0x7f050054;
-        public static final int lblPickWeight=0x7f050055;
-        public static final int lblUnitType=0x7f05004f;
+        public static final int imageViewIcon=0x7f05004d;
+        public static final int lblAddressee=0x7f050051;
+        public static final int lblDate=0x7f050059;
+        public static final int lblPickWeight=0x7f05005a;
+        public static final int lblUnitType=0x7f050054;
         public static final int left=0x7f050003;
+        public static final int left_drawer=0x7f050044;
         public static final int listMode=0x7f050008;
         public static final int list_item=0x7f05002f;
         public static final int middle=0x7f050018;
-        public static final int nbpDecimals=0x7f050059;
-        public static final int nbpHundreds=0x7f050056;
-        public static final int nbpTens=0x7f050057;
-        public static final int nbpUnits=0x7f050058;
+        public static final int nbpDecimals=0x7f05005e;
+        public static final int nbpHundreds=0x7f05005b;
+        public static final int nbpTens=0x7f05005c;
+        public static final int nbpUnits=0x7f05005d;
         public static final int never=0x7f050010;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050007;
         public static final int progress_circular=0x7f05001e;
         public static final int progress_horizontal=0x7f05001f;
         public static final int radio=0x7f050035;
-        public static final int rdbKilo=0x7f050051;
-        public static final int rdbPound=0x7f050052;
-        public static final int rdbSystem=0x7f050050;
+        public static final int rdbKilo=0x7f050056;
+        public static final int rdbPound=0x7f050057;
+        public static final int rdbSystem=0x7f050055;
         public static final int reveal=0x7f050004;
         public static final int right=0x7f050002;
-        public static final int row=0x7f05005c;
+        public static final int row=0x7f050060;
         public static final int search_badge=0x7f050038;
         public static final int search_bar=0x7f050037;
         public static final int search_button=0x7f050039;
@@ -1270,16 +1274,17 @@ containing a value of this type.
         public static final int showTitle=0x7f05000d;
         public static final int split_action_bar=0x7f050024;
         public static final int submit_area=0x7f05003f;
-        public static final int swipe_lv_list=0x7f05004a;
+        public static final int swipe_lv_list=0x7f05004e;
         public static final int tabMode=0x7f050009;
+        public static final int textViewName=0x7f05004c;
         public static final int title=0x7f050031;
         public static final int top_action_bar=0x7f050026;
-        public static final int txtDate=0x7f050048;
-        public static final int txtDateOld=0x7f05005d;
-        public static final int txtName=0x7f05004b;
-        public static final int txtUserEmail=0x7f05004c;
-        public static final int txtWeight=0x7f050049;
-        public static final int txtWeightOld=0x7f05005e;
+        public static final int txtDate=0x7f05004a;
+        public static final int txtDateOld=0x7f050061;
+        public static final int txtName=0x7f05004f;
+        public static final int txtUserEmail=0x7f050050;
+        public static final int txtWeight=0x7f05004b;
+        public static final int txtWeightOld=0x7f050062;
         public static final int up=0x7f050027;
         public static final int useLogo=0x7f05000a;
         public static final int withText=0x7f050013;
@@ -1336,16 +1341,17 @@ containing a value of this type.
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_main=0x7f030018;
         public static final int custom_row=0x7f030019;
-        public static final int fragment_history=0x7f03001a;
-        public static final int fragment_main=0x7f03001b;
-        public static final int fragment_user_info=0x7f03001c;
-        public static final int fragment_weight_measuring=0x7f03001d;
-        public static final int history_item=0x7f03001e;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001f;
+        public static final int drawer_item_row=0x7f03001a;
+        public static final int fragment_history=0x7f03001b;
+        public static final int fragment_main=0x7f03001c;
+        public static final int fragment_user_info=0x7f03001d;
+        public static final int fragment_weight_measuring=0x7f03001e;
+        public static final int history_item=0x7f03001f;
+        public static final int support_simple_spinner_dropdown_item=0x7f030020;
     }
     public static final class menu {
-        public static final int grid_element_menu=0x7f0c0000;
-        public static final int main=0x7f0c0001;
+        public static final int grid_element_menu=0x7f0d0000;
+        public static final int main=0x7f0d0001;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1391,11 +1397,14 @@ containing a value of this type.
         public static final int action_new_measurement=0x7f0a000f;
         public static final int action_settings=0x7f0a0010;
         public static final int app_name=0x7f0a000d;
+        public static final int button_add_contact=0x7f0a0023;
         public static final int button_delete=0x7f0a0015;
         public static final int button_edit=0x7f0a0020;
         public static final int button_pick=0x7f0a0014;
         public static final int button_settings_done=0x7f0a0019;
         public static final int button_share=0x7f0a0021;
+        public static final int drawer_close=0x7f0a0025;
+        public static final int drawer_open=0x7f0a0024;
         public static final int hello_world=0x7f0a000e;
         public static final int hint_name=0x7f0a0011;
         public static final int hint_recipient_email=0x7f0a0013;
@@ -1409,6 +1418,7 @@ containing a value of this type.
         public static final int menu_option_edit=0x7f0a001d;
         public static final int menu_option_share_other=0x7f0a001f;
         public static final int menu_option_share_self=0x7f0a001e;
+        public static final int menu_view_history=0x7f0a0022;
     }
     public static final class style {
         /** 

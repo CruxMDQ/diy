@@ -22,5 +22,15 @@
     <string name="menu_option_share_other">Email to default recipient</string>
     <string name="button_edit">Edit</string>
     <string name="button_share">Share</string>
+    <string name="menu_view_history">View history</string>
+    <string name="button_add_contact">Add new</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string-array name="navigation_drawer_items_array">
+        <item>Take new measurement</item>
+        <item>View history</item>
+        <item>Settings</item>
+    </string-array>
 
 </resources>

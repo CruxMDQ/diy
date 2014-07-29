@@ -28,14 +28,16 @@ import com.emilglober.diy.R;
 
 public class UserInfoFragment extends Fragment
 {
-	private Button btnChoose, btnDone;
+	protected static final int C_ADD_CONTACT = 1;
+
+	private Button btnAdd, btnChoose, btnDone;
 
 	private EditText txtName, txtUserEmail;
 
 	private TextView lblAddressee;
 
 	private RadioButton rdbKilo, rdbPound;
-	
+
 	private Bundle arguments;
 
 	public UserInfoFragment()
@@ -47,9 +49,9 @@ public class UserInfoFragment extends Fragment
 	{
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
-		
-		//restoreUIValues(this.getArguments());
-		//Bundle arguments = this.getArguments();
+
+		// restoreUIValues(this.getArguments());
+		// Bundle arguments = this.getArguments();
 	}
 
 	@Override
@@ -65,6 +67,17 @@ public class UserInfoFragment extends Fragment
 
 		lblAddressee = (TextView) rootView.findViewById(R.id.lblAddressee);
 
+		btnAdd = (Button) rootView.findViewById(R.id.btnAdd);
+
+		btnAdd.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				addContact();
+			}
+		});
+
 		btnChoose = (Button) rootView.findViewById(R.id.btnChoose);
 
 		btnChoose.setOnClickListener(new View.OnClickListener()
@@ -72,13 +85,7 @@ public class UserInfoFragment extends Fragment
 			@Override
 			public void onClick(View v)
 			{
-				final int C_PICK_CONTACT_EMAIL = 0; // LauncherActivity.C_PICK_CONTACT_EMAIL;
-
-				Intent i = new Intent(Intent.ACTION_PICK, Contacts.CONTENT_URI);
-
-				// source:
-				// http://stackoverflow.com/questions/13659796/why-am-i-getting-wrong-requestcode
-				getActivity().startActivityForResult(i, C_PICK_CONTACT_EMAIL);
+				pickContact();
 			}
 		});
 
@@ -92,9 +99,9 @@ public class UserInfoFragment extends Fragment
 			public void onClick(View arg0)
 			{
 				saveUserDetails();
-				
+
 				Activity a = getActivity();
-				
+
 				if (a instanceof LauncherActivity)
 				{
 					((LauncherActivity) a).loadWeightMeasuringUI();
@@ -144,11 +151,11 @@ public class UserInfoFragment extends Fragment
 		// btnDone.setEnabled(true);
 		// }
 		// });
-		
+
 		arguments = this.getArguments();
-		
+
 		restoreUIValues(arguments);
-		
+
 		return rootView;
 	}
 
@@ -196,7 +203,7 @@ public class UserInfoFragment extends Fragment
 		{
 			switch (requestCode)
 			{
-			case 0: {
+			case LauncherActivity.C_PICK_CONTACT_EMAIL: {
 				try
 				{
 					if (data != null)
@@ -243,6 +250,11 @@ public class UserInfoFragment extends Fragment
 				}
 				break;
 			}
+			case C_ADD_CONTACT: {
+				pickContact();
+
+				break;
+			}
 			}
 		}
 	}
@@ -281,11 +293,9 @@ public class UserInfoFragment extends Fragment
 
 				txtName.setText(t);
 
-				txtUserEmail.setText(arguments
-						.getString("txtUserEmail"));
+				txtUserEmail.setText(arguments.getString("txtUserEmail"));
 
-				lblAddressee.setText(arguments
-						.getString("lblAddressee"));
+				lblAddressee.setText(arguments.getString("lblAddressee"));
 
 				boolean metrics = arguments.getBoolean("rdbKilo");
 
@@ -304,7 +314,7 @@ public class UserInfoFragment extends Fragment
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	/***
 	 * Saves form content into database.
 	 */
@@ -314,7 +324,7 @@ public class UserInfoFragment extends Fragment
 		 * Retrieve content from form
 		 */
 		ContentValues reg = new ContentValues();
-		
+
 		reg.put(UserdataDBAdapter.C_NAME, txtName.getText().toString());
 
 		reg.put(UserdataDBAdapter.C_USER_EMAIL, txtUserEmail.getText()
@@ -346,15 +356,17 @@ public class UserInfoFragment extends Fragment
 			{
 				if (arguments == null)
 				{
-					((LauncherActivity) parent).getUserdataDBAdapter().insert(reg);
+					((LauncherActivity) parent).getUserdataDBAdapter().insert(
+							reg);
 				}
 				else
 				{
 					reg.put(UserdataDBAdapter.C_ID, arguments.getInt("userId"));
 
-					((LauncherActivity) parent).getUserdataDBAdapter().update(reg);					
-					
-					((LauncherActivity) parent).queryForUserDetails();					
+					((LauncherActivity) parent).getUserdataDBAdapter().update(
+							reg);
+
+					((LauncherActivity) parent).queryForUserDetails();
 				}
 				Toast.makeText(parent, "User details successfully stored",
 						Toast.LENGTH_LONG).show();
@@ -372,4 +384,24 @@ public class UserInfoFragment extends Fragment
 		super.onViewStateRestored(savedInstanceState);
 
 	}
+
+	public void addContact()
+	{
+		Intent intent = new Intent(Intent.ACTION_INSERT,
+				ContactsContract.Contacts.CONTENT_URI);
+
+		getActivity().startActivityForResult(intent, C_ADD_CONTACT);
+	}
+
+	public void pickContact()
+	{
+		final int C_PICK_CONTACT_EMAIL = LauncherActivity.C_PICK_CONTACT_EMAIL; // 0
+
+		Intent i = new Intent(Intent.ACTION_PICK, Contacts.CONTENT_URI);
+
+		// source:
+		// http://stackoverflow.com/questions/13659796/why-am-i-getting-wrong-requestcode
+		getActivity().startActivityForResult(i, C_PICK_CONTACT_EMAIL);
+	}
+
 }

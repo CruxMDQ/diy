@@ -11,7 +11,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal" >
 
         <EditText
@@ -28,7 +29,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal" >
 
         <!-- android:layout_weight="3" -->
@@ -45,25 +47,45 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/lblAddressee"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/hint_recipient_email"
             android:textAppearance="?android:attr/textAppearanceMedium" >
+
         </TextView>
 
-        <Button
-            android:id="@+id/btnChoose"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="@string/button_pick" />
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnChoose"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:text="@string/button_pick" />
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:text="@string/button_add_contact" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -80,31 +102,25 @@
             android:text="@string/label_pick_system"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/rdbSystem"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content" >
 
-			<RadioGroup
-			    android:id="@+id/rdbSystem"
+            <RadioButton
+                android:id="@+id/rdbKilo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-			        
-	            <RadioButton
-	                android:id="@+id/rdbKilo"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="2"
-	                android:text="@string/label_kilograms" />
-	
-	            <RadioButton
-	                android:id="@+id/rdbPound"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="2"
-	                android:text="@string/label_pounds" />
-            </RadioGroup>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/label_kilograms" />
+
+            <RadioButton
+                android:id="@+id/rdbPound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/label_pounds" />
+        </RadioGroup>
     </LinearLayout>
 
     <LinearLayout

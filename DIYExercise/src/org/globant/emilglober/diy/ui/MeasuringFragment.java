@@ -42,6 +42,8 @@ public class MeasuringFragment extends Fragment
 
 	Time time;
 
+	private int id;
+
 	public MeasuringFragment()
 	{
 	}
@@ -139,7 +141,7 @@ public class MeasuringFragment extends Fragment
 				saveMeasuring();
 
 				Activity a = getActivity();
-				
+
 				if (a instanceof LauncherActivity)
 				{
 					((LauncherActivity) a).loadMeasurementHistoryUI();
@@ -150,7 +152,7 @@ public class MeasuringFragment extends Fragment
 		currentDate = new Date();
 
 		arguments = this.getArguments();
-		
+
 		restoreUIValues(arguments);
 
 		return rootView;
@@ -172,31 +174,34 @@ public class MeasuringFragment extends Fragment
 		savedInstanceState.putInt("nbpDecimals", nbpDecimals.getValue());
 	}
 
-	// TODO Finish implementing this.
 	private void restoreUIValues(Bundle arguments)
 	{
 		try
 		{
 			if (arguments != null)
 			{
-				String date = arguments.getString("txtDate");
-				
-				int hundreds = arguments.getInt("nbpHundreds");
-				
-				int tens = arguments.getInt("nbpTens");
-				
-				int units = arguments.getInt("nbpUnits");
-				
-				int decimals = arguments.getInt("nbpDecimals");
-				
+				id = arguments.getInt("rowId");
+
+				String date = arguments.getString("date");
+
+				int grams = arguments.getInt("grams");
+
+				int hundreds = grams / 100;
+
+				int tens = (grams - (hundreds * 100)) / 10;
+
+				int units = (grams - (hundreds * 100) - (tens * 10));
+
+				int decimals = ((grams * 10) - (hundreds * 1000) - (tens * 100) - (units * 10));
+
 				txtDate.setText(date);
-				
+
 				nbpHundreds.setValue(hundreds);
-				
+
 				nbpTens.setValue(tens);
-				
+
 				nbpUnits.setValue(units);
-				
+
 				nbpDecimals.setValue(decimals);
 			}
 		}
@@ -205,8 +210,7 @@ public class MeasuringFragment extends Fragment
 			System.out.println(e.getMessage());
 		}
 	}
-	
-	
+
 	private void saveMeasuring()
 	{
 		ContentValues reg = new ContentValues();
@@ -215,8 +219,6 @@ public class MeasuringFragment extends Fragment
 				"yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
 		// String t = dateFormat.format(currentDate);
-
-		reg.put(MeasurementsDBAdapter.C_DATE, dateFormat.format(currentDate));
 
 		int hundreds = nbpHundreds.getValue() * 1000;
 		int tens = nbpTens.getValue() * 1000;
@@ -228,8 +230,8 @@ public class MeasuringFragment extends Fragment
 		reg.put(MeasurementsDBAdapter.C_GRAMS, grams);
 
 		double pounds = grams / 454;
-		
-		reg.put(MeasurementsDBAdapter.C_POUNDS, pounds);		
+
+		reg.put(MeasurementsDBAdapter.C_POUNDS, pounds);
 		/*
 		 * Save content into database source:
 		 * http://stackoverflow.com/questions/
@@ -241,13 +243,32 @@ public class MeasuringFragment extends Fragment
 
 			if (parent instanceof LauncherActivity)
 			{
-				long result = ((LauncherActivity) parent).getMeasurementsDBAdapter().insert(
-						reg);
-				
-				Log.e("Measurement insertion result", "" + result);
+				if (arguments != null)
+				{
+					reg.put(MeasurementsDBAdapter.C_DATE, txtDate.getText().toString());
 
-				Toast.makeText(parent, "Measurement successfully stored",
-						Toast.LENGTH_LONG).show();
+					reg.put(MeasurementsDBAdapter.C_ID, id);
+					
+					long result = ((LauncherActivity) parent)
+							.getMeasurementsDBAdapter().update(reg);
+
+					Log.e("Measurement insertion result", "" + result);
+
+					Toast.makeText(parent, "Measurement successfully stored",
+							Toast.LENGTH_LONG).show();
+				}
+				else
+				{
+					reg.put(MeasurementsDBAdapter.C_DATE, dateFormat.format(currentDate));
+
+					long result = ((LauncherActivity) parent)
+							.getMeasurementsDBAdapter().insert(reg);
+
+					Log.e("Measurement insertion result", "" + result);
+
+					Toast.makeText(parent, "Measurement successfully stored",
+							Toast.LENGTH_LONG).show();
+				}
 			}
 		}
 		catch (SQLException e)
