@@ -1,5 +1,7 @@
 package org.globant.emilglober.diy.ui;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.globant.emilglober.diy.adapters.DrawerItemCustomAdapter;
@@ -11,6 +13,8 @@ import org.globant.emilglober.diy.ui.fragments.DateRangePickingFragment;
 import org.globant.emilglober.diy.ui.fragments.HistoryFragment;
 import org.globant.emilglober.diy.ui.fragments.MeasuringFragment;
 import org.globant.emilglober.diy.ui.fragments.UserInfoFragment;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,9 +42,9 @@ import com.emilglober.diy.R;
  * TO-DO LIST!
  * TODO Fix the numerical system thing
  * TODO Fix the decimals not being handled
- * TODO Code logic for sharing multiple rows
  * TODO Code logic for creating a new contact or editing an existing one (partially solved)
  * TODO Implement animated transitions!
+ * Code logic for sharing multiple rows [COMPLETED]
  * Create a better application flow [COMPLETED]
  */
 public class LauncherActivity extends ActionBarActivity // implements
@@ -71,7 +75,7 @@ public class LauncherActivity extends ActionBarActivity // implements
 
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
-	
+
 	/*
 	 * END: Navigation drawer stuff
 	 */
@@ -227,25 +231,6 @@ public class LauncherActivity extends ActionBarActivity // implements
 		{
 			return true;
 		}
-
-		// TODO Re-enable this if drawer doesn't work!
-		// int id = item.getItemId();
-		//
-		// switch (id)
-		// {
-		// case R.id.action_settings: {
-		// loadUserInfoUI(user);
-		// break;
-		// }
-		// case R.id.action_new_measurement: {
-		// loadWeightMeasuringUI();
-		// break;
-		// }
-		// case R.id.action_view_history: {
-		// loadMeasurementHistoryUI();
-		// break;
-		// }
-		// }
 
 		return super.onOptionsItemSelected(item);
 	}
@@ -406,6 +391,12 @@ public class LauncherActivity extends ActionBarActivity // implements
 		return mMDBAdapter.getCursor().getCount();
 	}
 
+	public ArrayList<JSONObject> queryForMeasurementHistoryRange(
+			String dateStart, String dateEnd)
+	{
+		return mMDBAdapter.rawDateRangeQuery(dateStart, dateEnd);
+	}
+
 	public UserdataDBAdapter getUserdataDBAdapter()
 	{
 		return mUserDBAdapter;
@@ -424,6 +415,46 @@ public class LauncherActivity extends ActionBarActivity // implements
 	public void setUser(User user)
 	{
 		this.user = user;
+	}
+
+	public void shareSet(String dateStart, String dateEnd)
+	{
+		Intent i = new Intent(Intent.ACTION_SEND);
+
+		i.putExtra(android.content.Intent.EXTRA_EMAIL,
+				new String[] { user.getRecipientMail() });
+
+		StringBuilder st = new StringBuilder();
+
+		ArrayList<JSONObject> history = mMDBAdapter.rawDateRangeQuery(
+				dateStart, dateEnd);
+
+		Iterator<JSONObject> I = history.iterator();
+
+		while (I.hasNext())
+		{
+			JSONObject t = I.next();
+
+			try
+			{
+				st.append(t.getString(MeasurementsDBAdapter.C_DATE) + ", "
+						+ t.getString(MeasurementsDBAdapter.C_GRAMS) + "\n ");
+			}
+			catch (JSONException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
+		i.putExtra(android.content.Intent.EXTRA_SUBJECT,
+				"My weight measurement history");
+		
+		i.putExtra(android.content.Intent.EXTRA_TEXT, st.toString());
+
+		i.setType("message/rfc822");
+
+		startActivity(Intent.createChooser(i, "Send email"));
+		
 	}
 
 	public void shareSingle(boolean self, String text)
@@ -507,4 +538,5 @@ public class LauncherActivity extends ActionBarActivity // implements
 			}
 		}
 	}
+
 }

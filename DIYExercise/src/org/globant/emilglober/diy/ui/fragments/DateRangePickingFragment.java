@@ -1,13 +1,18 @@
 package org.globant.emilglober.diy.ui.fragments;
 
 import java.util.Date;
+import java.util.Locale;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import org.globant.emilglober.diy.ui.LauncherActivity;
 import org.globant.emilglober.diy.ui.fragments.MeasuringFragment.DatePickerFragment;
 
 import com.emilglober.diy.R;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -52,7 +57,7 @@ public class DateRangePickingFragment extends Fragment
 
 		txtStartDate = (TextView) rootView.findViewById(R.id.txtStartDate);
 
-		txtStartDate.setText(time.format("%d/%m/%Y, %H:%M"));
+		txtStartDate.setText(time.format("%Y-%m-%d %H:%M:%S"));
 
 		txtStartDate.setOnClickListener(new View.OnClickListener()
 		{
@@ -76,7 +81,7 @@ public class DateRangePickingFragment extends Fragment
 
 		txtEndDate = (TextView) rootView.findViewById(R.id.txtEndDate);
 
-		txtEndDate.setText(time.format("%d/%m/%Y, %H:%M"));
+		txtEndDate.setText(time.format("%Y-%m-%d %H:%M:%S"));
 
 		txtEndDate.setOnClickListener(new View.OnClickListener()
 		{
@@ -109,17 +114,57 @@ public class DateRangePickingFragment extends Fragment
 
 				// TODO Code the following logic:
 				// - Compare the dates [completed]
-				// - Display a warning message if they're wrong
-				// - Convert strings to a format usable for a SQLite query
-				// - Write SQLite query to retrieve whole set of results
+				// - Display a warning message if they're wrong [completed]
+				// - Convert strings to a format usable for a SQLite query [completed]
+				// - Write SQLite query to retrieve whole set of results [completed]
 				// - Iterate through results and create a body of text for
 				// emailing
 				// - Fire up email client and dispatch message
 
-				if (compareDates(txtStartDate.getText().toString(), 
-						txtEndDate.getText().toString()))
+				// SimpleDateFormat formatter = new
+				// SimpleDateFormat("dd/MM/yyyy");
+
+				String dateStart = txtStartDate.getText().toString();
+
+				String dateEnd = txtEndDate.getText().toString();
+
+				if (compareDates(dateStart, dateEnd))
 				{
+					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+							getActivity());
+
+					alertDialogBuilder.setTitle("Error");
+
+					alertDialogBuilder
+							.setMessage(
+									"The starting date is more recent than the ending date.")
+							.setPositiveButton("Okay",
+									new DialogInterface.OnClickListener()
+									{
+
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which)
+										{
+											dialog.cancel();
+
+										}
+									}).setCancelable(false);
+
+					AlertDialog alertDialog = alertDialogBuilder.create();
+
+					alertDialog.show();
+				}
+				else
+				{
+					Activity a = getActivity();
 					
+					if (a instanceof LauncherActivity)
+					{
+						((LauncherActivity) a).shareSet(dateStart, dateEnd);
+//						((LauncherActivity) a).queryForMeasurementHistoryRange(dateStart, dateEnd);
+					}
 				}
 
 			}
@@ -128,20 +173,29 @@ public class DateRangePickingFragment extends Fragment
 		return rootView;
 	}
 
+	/**
+	 * Compares two dates to check whether they're in proper order.
+	 * 
+	 * @param dateStart
+	 *            Earlier date.
+	 * @param dateEnd
+	 *            Later date.
+	 * @return true if the dates are properly ordered and false if they are not.
+	 */
 	protected boolean compareDates(String dateStart, String dateEnd)
 	{
-		SimpleDateFormat formatter;
+		SimpleDateFormat formatter = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
+		// SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
 		try
 		{
+			Date start = formatter.parse(dateStart);
 
-			formatter = new SimpleDateFormat("dd/MM/yyyy");
+			Date end = formatter.parse(dateEnd);
 
-			Date date1 = formatter.parse(dateStart);
-
-			Date date2 = formatter.parse(dateEnd);
-
-			if (date1.compareTo(date2) < 0)
+			if (start.compareTo(end) < 0)
 			{
 				System.out.println("date2 is Greater than my date1");
 				return false;
@@ -151,9 +205,8 @@ public class DateRangePickingFragment extends Fragment
 				System.out.println("date1 is Greater than my date2");
 			}
 		}
-		catch (java.text.ParseException e)
+		catch (ParseException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -203,13 +256,28 @@ public class DateRangePickingFragment extends Fragment
 			int mMonth = monthOfYear;
 			int mDay = dayOfMonth;
 
-			StringBuilder st = new StringBuilder()
-					// // Month is 0 based so add 1
-					.append(mDay).append("/").append(mMonth + 1).append("/")
-					.append(mYear).append(" ");
+			if ((mMonth + 1) < 10)
+			{
+				StringBuilder st = new StringBuilder()
+						// // Month is 0 based so add 1
+						.append(mYear).append("-").append("0")
+						.append(mMonth + 1).append("-").append(mDay)
+						.append(" ").append("00").append(":").append("00")
+						.append(":").append("00");
 
-			date = st.toString();
+				date = st.toString();
+			}
+			else
+			{
+				StringBuilder st = new StringBuilder()
+						// // Month is 0 based so add 1
+						.append(mYear).append("-").append(mMonth + 1)
+						.append("-").append(mDay).append(" ").append("00")
+						.append(":").append("00").append(":").append("00");
+				; // .append(" ")
 
+				date = st.toString();
+			}
 			// System.out.println(txtDate.getText().toString());
 
 		}
