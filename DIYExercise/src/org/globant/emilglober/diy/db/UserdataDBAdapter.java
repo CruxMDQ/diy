@@ -46,8 +46,19 @@ public class UserdataDBAdapter extends DBAdapter
 			String recipientMail = c.getString(c.getColumnIndexOrThrow(C_RECIPIENT_EMAIL));
 			
 			int t = c.getInt(c.getColumnIndexOrThrow(C_USES_METRIC));
+
+			// This doesn't work as it should. Why?
+			Boolean usesMetricSystem = Boolean.parseBoolean(String.valueOf(t));
 			
-			Boolean usesMetricSystem = Boolean.parseBoolean(String.valueOf(c.getInt(c.getColumnIndexOrThrow(C_USES_METRIC))));
+			if (t == 1)
+			{
+				usesMetricSystem = true;
+			}
+			
+			if (t == 0)
+			{
+				usesMetricSystem = false;
+			}
 			
 			// Set information on result object
 			u.setId(id);

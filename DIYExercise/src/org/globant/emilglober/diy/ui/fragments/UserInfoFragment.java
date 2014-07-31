@@ -336,12 +336,12 @@ public class UserInfoFragment extends Fragment
 
 		if (rdbKilo.isChecked())
 		{
-			reg.put(UserdataDBAdapter.C_USES_METRIC, true);
+			reg.put(UserdataDBAdapter.C_USES_METRIC, 1);	// , true
 		}
 		else
 			if (rdbPound.isChecked())
 			{
-				reg.put(UserdataDBAdapter.C_USES_METRIC, false);
+				reg.put(UserdataDBAdapter.C_USES_METRIC, 0);	// , false
 			}
 
 		/*

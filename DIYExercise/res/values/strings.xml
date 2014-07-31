@@ -4,6 +4,7 @@
     <string-array name="navigation_drawer_items_array">
         <item>Take new measurement</item>
         <item>View history</item>
+        <item>Share history</item>
         <item>Settings</item>
     </string-array>    
     

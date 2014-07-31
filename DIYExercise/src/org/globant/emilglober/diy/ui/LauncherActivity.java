@@ -40,18 +40,17 @@ import com.emilglober.diy.R;
 
 /*
  * TO-DO LIST!
- * TODO Fix the numerical system thing
+ * TODO Fix the numerical system thing [in progress]
  * TODO Fix the decimals not being handled
  * TODO Code logic for creating a new contact or editing an existing one (partially solved)
  * TODO Implement animated transitions!
  * Code logic for sharing multiple rows [COMPLETED]
  * Create a better application flow [COMPLETED]
  */
-public class LauncherActivity extends ActionBarActivity // implements
-// DirectorInterface
+public class LauncherActivity extends ActionBarActivity 
 {
 	static public final int C_PICK_CONTACT_EMAIL = 0;
-
+	
 	private MeasurementsDBAdapter mMDBAdapter;
 	private UserdataDBAdapter mUserDBAdapter;
 

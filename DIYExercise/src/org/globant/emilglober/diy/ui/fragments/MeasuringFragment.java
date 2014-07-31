@@ -36,6 +36,9 @@ import android.widget.Toast;
 
 public class MeasuringFragment extends Fragment
 {
+	static public final float C_GRAMS_PER_POUND = (float) 453.592,
+			C_GRAMS_PER_OUNCE = (float) 28.3495;
+
 	private TextView txtDate;
 
 	private NumberPicker nbpHundreds, nbpTens, nbpUnits, nbpDecimals;
@@ -45,6 +48,8 @@ public class MeasuringFragment extends Fragment
 	private Date currentDate;
 
 	private Bundle arguments;
+
+	private Boolean usesMetricSystem;
 
 	Time time;
 
@@ -86,6 +91,14 @@ public class MeasuringFragment extends Fragment
 	{
 		View rootView = inflater.inflate(R.layout.fragment_weight_measuring,
 				container, false);
+
+		Activity parent = getActivity();
+
+		if (parent instanceof LauncherActivity)
+		{
+			usesMetricSystem = ((LauncherActivity) parent).getUser()
+					.getUsesMetricSystem();
+		}
 
 		txtDate = (TextView) rootView.findViewById(R.id.txtDate);
 
@@ -186,31 +199,48 @@ public class MeasuringFragment extends Fragment
 
 				String date = arguments.getString("date");
 
-				int grams = arguments.getInt("grams");
+				int weight = arguments.getInt("grams");
 
-				int hundreds = grams / 100;
-
-				int tens = (grams - (hundreds * 100)) / 10;
-
-				int units = (grams - (hundreds * 100) - (tens * 10));
-
-				int decimals = ((grams * 10) - (hundreds * 1000) - (tens * 100) - (units * 10));
-
-				txtDate.setText(date);
-
-				nbpHundreds.setValue(hundreds);
-
-				nbpTens.setValue(tens);
-
-				nbpUnits.setValue(units);
-
-				nbpDecimals.setValue(decimals);
+//				if (usesMetricSystem)
+//				{
+					int kilograms = weight;
+					
+					setPickerValues(date, kilograms);
+//				}
+//				else
+//				{
+//					int pounds = (int) ((weight*1000) / C_GRAMS_PER_POUND);
+//					
+//					setPickerValues(date, pounds);
+//				}
 			}
 		}
 		catch (Exception e)
 		{
 			System.out.println(e.getMessage());
 		}
+	}
+
+	public void setPickerValues(String date, int weight)
+	{
+		int hundreds = weight / 100;
+
+		int tens = (weight - (hundreds * 100)) / 10;
+
+		int units = (weight - (hundreds * 100) - (tens * 10));
+
+		int decimals = ((weight * 10) - (hundreds * 1000)
+				- (tens * 100) - (units * 10));
+
+		txtDate.setText(date);
+
+		nbpHundreds.setValue(hundreds);
+
+		nbpTens.setValue(tens);
+
+		nbpUnits.setValue(units);
+
+		nbpDecimals.setValue(decimals);
 	}
 
 	private void saveMeasuring()
@@ -247,10 +277,11 @@ public class MeasuringFragment extends Fragment
 			{
 				if (arguments != null)
 				{
-					reg.put(MeasurementsDBAdapter.C_DATE, txtDate.getText().toString());
+					reg.put(MeasurementsDBAdapter.C_DATE, txtDate.getText()
+							.toString());
 
 					reg.put(MeasurementsDBAdapter.C_ID, id);
-					
+
 					long result = ((LauncherActivity) parent)
 							.getMeasurementsDBAdapter().update(reg);
 
@@ -261,7 +292,8 @@ public class MeasuringFragment extends Fragment
 				}
 				else
 				{
-					reg.put(MeasurementsDBAdapter.C_DATE, dateFormat.format(currentDate));
+					reg.put(MeasurementsDBAdapter.C_DATE,
+							dateFormat.format(currentDate));
 
 					long result = ((LauncherActivity) parent)
 							.getMeasurementsDBAdapter().insert(reg);

@@ -52,6 +52,7 @@ public class DateRangePickingFragment extends Fragment
 
 		end = new DatePickerFragment();
 
+		// System.currentTimeMillis() - equivalent to the stuff below (sort of)
 		time = new Time();
 		time.setToNow();
 
@@ -117,9 +118,9 @@ public class DateRangePickingFragment extends Fragment
 				// - Display a warning message if they're wrong [completed]
 				// - Convert strings to a format usable for a SQLite query [completed]
 				// - Write SQLite query to retrieve whole set of results [completed]
-				// - Iterate through results and create a body of text for
-				// emailing
-				// - Fire up email client and dispatch message
+				// - Iterate through results and create a body of text for 
+				// emailing [completed]
+				// - Fire up email client and dispatch message [completed]
 
 				// SimpleDateFormat formatter = new
 				// SimpleDateFormat("dd/MM/yyyy");

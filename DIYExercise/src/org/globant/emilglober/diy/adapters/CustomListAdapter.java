@@ -36,6 +36,8 @@ public class CustomListAdapter extends BaseAdapter
 
 	private static LayoutInflater inflater = null;
 
+	private Boolean usesMetricSystem;
+	
 	int layoutResID;
 
 	public CustomListAdapter(Activity a, int layoutResID)
@@ -43,6 +45,8 @@ public class CustomListAdapter extends BaseAdapter
 		this.activity = a;
 		// this.items = d;
 
+		usesMetricSystem = new org.globant.emilglober.diy.db.UserdataDBAdapter(a).getUserDetails().getUsesMetricSystem();
+		
 		this.layoutResID = layoutResID;
 
 		mDBAdapter = new MeasurementsDBAdapter(this.activity);
@@ -88,7 +92,7 @@ public class CustomListAdapter extends BaseAdapter
 					MeasurementsDBAdapter.C_DATE);
 
 			final int grams = items.get(position).getInt(
-					MeasurementsDBAdapter.C_GRAMS) / 1000;
+					MeasurementsDBAdapter.C_GRAMS);
 
 			if (rowView == null)
 			{
@@ -129,7 +133,6 @@ public class CustomListAdapter extends BaseAdapter
 
 				Holder.btnShare.setOnClickListener(new View.OnClickListener()
 				{
-
 					@Override
 					public void onClick(View v)
 					{
@@ -148,7 +151,14 @@ public class CustomListAdapter extends BaseAdapter
 
 			Holder.txtDate.setText(date);
 
-			Holder.txtWeight.setText(Double.toString(grams));
+			if (usesMetricSystem)
+			{
+				Holder.txtWeight.setText(Float.toString((float)grams / 1000));
+			}
+			else
+			{
+				Holder.txtWeight.setText(Float.toString((float)grams / 454));
+			}
 		}
 		catch (JSONException e)
 		{
