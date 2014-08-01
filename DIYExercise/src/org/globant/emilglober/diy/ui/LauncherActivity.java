@@ -512,7 +512,8 @@ public class LauncherActivity extends ActionBarActivity
 				fragment = new DateRangePickingFragment();
 				break;
 			case 3:
-				fragment = loadUserInfoFragment();
+				userInfo = (UserInfoFragment) loadUserInfoFragment();
+				fragment = userInfo;
 				// loadUserInfoUI();
 				break;
 
